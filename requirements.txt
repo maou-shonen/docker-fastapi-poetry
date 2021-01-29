@@ -1,4 +1,0 @@
-# check latest update by https://docs.renovatebot.com/python/
-
-fastapi
-poetry

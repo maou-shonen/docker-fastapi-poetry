@@ -12,12 +12,14 @@ repo = gh.get_repo('tiangolo/uvicorn-gunicorn-fastapi-docker')
 files: List[ContentFile] = repo.get_contents('docker-images')
 
 # filter
-tags: List[str] = ['latest']
+tags: List[str] = []
 for file in files:
     if not file.name.lower().endswith('.dockerfile'):
         continue
 
     tags.append(file.name.rstrip('.dockerfile'))
+
+tags.append('latest')
 
 logging.info(f'tags: {tags}')
 

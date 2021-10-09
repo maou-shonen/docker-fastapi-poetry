@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.6"
+      - name: Install Dependencies
+        run: python -m pip install PyGithub
+      - name: Deploy Images
+        run: python scripts/docker-build-push.py

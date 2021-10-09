@@ -5,11 +5,12 @@ description = ""
 authors = ["q267009886.work@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.6"
 fastapi = "^0.68.0"
 poetry = "^1.1.4"
 
 [tool.poetry.dev-dependencies]
+PyGithub = "1.55"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,4 +1,6 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.6-alpine3.8
+ARG TAG
+
+FROM tiangolo/uvicorn-gunicorn-fastapi:$TAG
 
 RUN wget -qO - https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - \
     && ln -s $HOME/.poetry/bin/poetry /usr/sbin/ \

@@ -22,7 +22,7 @@ for file in files:
 logging.info(f'tags: {tags}')
 
 # docker login
-subprocess.run('echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin', shell=True).check_returncode()
+subprocess.run('docker login --username "$DOCKER_USER" --password "$DOCKER_PASS"', shell=True).check_returncode()
 
 # docker build
 for tag in tags:

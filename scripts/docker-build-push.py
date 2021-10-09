@@ -21,9 +21,6 @@ for file in files:
 
 logging.info(f'tags: {tags}')
 
-# docker login
-subprocess.run('docker login --username "$DOCKER_USER" --password "$DOCKER_PASS"', shell=True).check_returncode()
-
 # docker build
 for tag in tags:
     try:

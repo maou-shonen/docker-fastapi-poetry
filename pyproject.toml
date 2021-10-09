@@ -6,7 +6,7 @@ authors = ["q267009886.work@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-fastapi = "^0.68.0"
+fastapi = "^0.70.0"
 poetry = "^1.1.4"
 
 [tool.poetry.dev-dependencies]

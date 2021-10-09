@@ -1,13 +1,11 @@
 from typing import List
-import subprocess
+import logging, subprocess
 from github import Github
 from github.ContentFile import ContentFile
 
 DOCKER_REPO = 'q267009886/fastapi-poetry'
 
-github_user = 'tiangolo'
-github_repo = 'uvicorn-gunicorn-fastapi-docker'
-github_branch = 'master'
+logging.basicConfig(format='%(asctime)s [%(levelname)s]%(filename)s:%(lineno)d] %(message)s', level=logging.DEBUG)
 
 gh = Github()
 repo = gh.get_repo('tiangolo/uvicorn-gunicorn-fastapi-docker')
@@ -21,19 +19,22 @@ for file in files:
 
     tags.append(file.name.rstrip('.dockerfile'))
 
-print('tags:', tags)
+logging.info(f'tags: {tags}')
 
 # docker login
-# subprocess.run('echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin', shell=True).check_returncode()
+subprocess.run('echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin', shell=True).check_returncode()
 
 # docker build
 for tag in tags:
-    subprocess.run(
-        'docker build '
-        f'-t {DOCKER_REPO}:{tag} '
-        f'--build-arg TAG={tag} '
-        '.'
-    , shell=True).check_returncode()
+    try:
+        subprocess.run(
+            'docker build '
+            f'-t {DOCKER_REPO}:{tag} '
+            f'--build-arg TAG={tag} '
+            '.'
+        , shell=True).check_returncode()
+    except Exception as e:
+        logging.exception(f'build fail tag: {tag}')
 
 # docker push
-subprocess.run('docker push --all-tags', shell=True).check_returncode()
+subprocess.run(f'docker push --all-tags {DOCKER_REPO}', shell=True).check_returncode()
